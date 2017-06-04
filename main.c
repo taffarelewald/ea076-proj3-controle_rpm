@@ -64,7 +64,7 @@ int main(void)
 	
 	PWM1_Enable(); //Habilita o sinal de PWM que entra na base do transistor
 	
-	int flag_check = 0;		//flag que habilita medicoes somente a partir do momento em que o duty cycle eh definido
+	int flag_check = 0;		//flag que habilita medicoes somente a partir do momento em que o primeiro duty cycle eh definido
 	int speed_ref = 3200;		//variavel que armazena velocidade de referencia para um dutycycle definido pelo usuario
 	int speed_measure = 0;		//variavel que armazena velocidade medida pelo sensor IR
 	int error;			//variavel que armazena erro da velocidade medida em relacao a velocidade de referencia
