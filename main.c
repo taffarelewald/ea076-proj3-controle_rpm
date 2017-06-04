@@ -45,6 +45,8 @@
 #include "PE_Const.h"
 #include "IO_Map.h"
 
+#define RATED_SPEED 3200 		//define velocidade nominal de rotacao do motor
+
 /*Declaracao de variaveis globais de controle*/
 extern int dutyc_flag;			//flag que habilita escrita de novo duty_cycle definido pelo usuario
 extern int cont;			//variavel contadora para definicao da velocidade do motor a partir da medida do sensor
@@ -82,7 +84,7 @@ int main(void)
 				cont = 0;					//cont eh inicializado em 0
 				WAIT1_Waitms(1000);				//aguarda 1 segundo para contagem das rotacoes do motor durante esse tempo
 			
-				speed_ref = 3200*duty_cycle/100;		//velocidade de referencia para um dutycycle eh calculada
+				speed_ref = RATED_SPEED*duty_cycle/100;		//velocidade de referencia para um dutycycle eh calculada
 				speed_measure = cont*60/2;			//velocidade medida pelo sensor IR eh calculada em rpm
 		
 				send_string("Referencia : ");
@@ -93,7 +95,7 @@ int main(void)
 
 				error = speed_ref - speed_measure;		//erro de velocidade eh computado
 			
-				P = kp*error*255/3200;				//valor normalizado (0-255) do controle proporcional eh calculado
+				P = kp*error*255/RATED_SPEED;			//valor normalizado (0-255) do controle proporcional eh calculado
 			
 				new_speed = ((100 - duty_cycle) * 2.55) - P;	//nova velocidade de rotacao eh calculada com controle proporcional
 				PWM1_SetRatio8(new_speed);			//nova velocidade de rotacao eh setada no motor
